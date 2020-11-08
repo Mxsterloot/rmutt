@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once 'checkrole.php';
-if($_SESSION['id']==""){
+if ($_SESSION['id'] == "") {
     header("location: index.php");
 }
 ?>
@@ -16,6 +16,7 @@ if($_SESSION['id']==""){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
     <title>RMUTT Counselling</title>
@@ -33,8 +34,8 @@ if($_SESSION['id']==""){
         <div class="row">
             <div class="col">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modelId">
-                    <i class="fa fa-plus" aria-hidden="true"></i> เพิ่มข้อมูลการจอง
+                <button type="button" class="btn btn-primary btn-lg btn-block mt-3" data-toggle="modal" data-target="#modelId">
+                    <i class="fa fa-plus" aria-hidden="true"></i> จองคิวพบจิตแพทย์
                 </button>
 
                 <!-- Modal -->
@@ -42,23 +43,54 @@ if($_SESSION['id']==""){
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">เพิ่มข้อมูลการจอง</h5>
+                                <h5 class="modal-title">จองคิวพบจิตแพทย์</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <form action="savemeetdoctor.php" method="post">
-                                <div class="form-group">
-                                    <label for="">วันที่จะจอง</label>
-                                    <input type="date" class="form-control" name="date" id="date" aria-describedby="helpId" placeholder="" required>
-                                    <small id="helpId1" class="form-text text-muted">วันที่จะจอง</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">เวลาที่จะจอง</label>
-                                    <input type="time" class="form-control" name="time" id="time" min="09.00" max="14.00" aria-describedby="helpId" placeholder="" required>
-                                    <small id="helpId2" class="form-text text-muted">เวลาที่จะจอง</small>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="">วันที่จะจอง</label>
+                                        <input type="date" class="form-control" name="date" id="date" aria-describedby="helpId" placeholder="" required>
+                                        <small id="helpId1" class="form-text text-muted">วันที่จะจอง</small>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="time" id="time" value="9">
+                                            9.00 น.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="time" id="time" value="10">
+                                            10.00 น.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="time" id="time" value="11">
+                                            11.00 น.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="time" id="time" value="13">
+                                            13.00 น.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="time" id="time" value="14">
+                                            14.00 น.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="time" id="time" value="15">
+                                            15.00 น.
+                                        </label>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
@@ -69,6 +101,7 @@ if($_SESSION['id']==""){
                     </div>
                 </div>
                 <hr>
+                
                 <table id="allmeetdoctor" class="display">
                     <thead>
                         <tr>
@@ -93,10 +126,10 @@ if($_SESSION['id']==""){
                                 <td><?= $datamymeetdr['time'] ?></td>
                                 <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
                                 <td>
-                                    <?php if($_SESSION['role']==1){ ?> 
-                                    <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติ</a>
-                                    <a href="notapprovemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ไม่อนุมัติ</a>
-                                    <?php }elseif($_SESSION['role']==2 AND $_SESSION['id']==$datamymeetdr['ownerid']){ ?>
+                                    <?php if ($_SESSION['role'] == 1) { ?>
+                                        <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติ</a>
+                                        <a href="notapprovemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ไม่อนุมัติ</a>
+                                    <?php } elseif ($_SESSION['role'] == 2 and $_SESSION['id'] == $datamymeetdr['ownerid']) { ?>
                                         <a href="deletemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ยกเลิกการจอง</a>
                                     <?php } ?>
                                 </td>

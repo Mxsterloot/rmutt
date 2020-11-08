@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
+<nav class="navbar navbar-expand-lg navbar-white bg-white text-white">
     <a class="navbar-brand" href="index.php">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,12 +47,12 @@
                         <div class="modal-body">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">รหัสบัตรนักศึกษา:</label>
-                                    <input type="text" name="username" class="form-control" id="recipient-name" required="">
+                                    <label for="recipient-name" class="col-form-label">username:</label>
+                                    <input type="text" name="username" class="form-control" id="recipient-name" required="" placeholder="username">
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">รหัสผ่าน:</label>
-                                    <input type="password" name="password" class="form-control" required="">
+                                    <label for="message-text" class="col-form-label">password:</label>
+                                    <input type="password" name="password" class="form-control" required="" placeholder="password">
                                 </div>
                         </div>
                         <div class="modal-footer">
