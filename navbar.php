@@ -64,7 +64,8 @@
                 </div>
             </div>
         <?php } else { ?>
-            <i class="fa fa-user text-primary"> </i> สวัสดีคุณ <?= $datathisuser['name'] ?>
+            <i class="fa fa-user text-primary"> </i>
+            <p class="text-primary">สวัสดีคุณ <?= $datathisuser['name'] ?></p>
             <a href="logout.php" class="btn btn-danger"><i class="fa fa-sign-out-alt text-white"></i></a>
         <?php } ?>
 
