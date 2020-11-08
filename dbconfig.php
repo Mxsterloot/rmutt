@@ -3,7 +3,11 @@
 
 $servername = 'localhost';
 $db_username = 'root';
+<<<<<<< Updated upstream
 $db_password = 'root';
+=======
+$db_password = '';
+>>>>>>> Stashed changes
 $dbname = 'dps_db';
 
 $conn = mysqli_connect($servername, $db_username, $db_password, $dbname);
