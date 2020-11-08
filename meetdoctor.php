@@ -32,13 +32,10 @@ if ($_SESSION['id'] == "") {
     <?php require_once 'navbar.php'; ?>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg btn-block mt-3" data-toggle="modal" data-target="#modelId">
-                    <i class="fa fa-plus" aria-hidden="true"></i> จองคิวพบจิตแพทย์
-                </button>
-
-                <!-- Modal -->
+            <button type="button" class="btn btn-primary btn-lg btn-block mt-3" data-toggle="modal" data-target="#modelId">
+                <i class="fa fa-plus" aria-hidden="true"></i> จองคิวพบจิตแพทย์
+            </button>
+            <div class="col-sm-9">
                 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -274,10 +271,8 @@ if ($_SESSION['id'] == "") {
                 </div>
 
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div id="calendar"></div>
+            <div class="col-sm-3">
+                <iframe src="https://calendar.google.com/calendar/embed?src=champzza0o0%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="auto" height="300px" frameborder="0" scrolling="no"></iframe>
             </div>
         </div>
     </div>
