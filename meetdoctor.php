@@ -57,37 +57,37 @@ if ($_SESSION['id'] == "") {
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="time" id="time" value="9">
+                                            <input type="radio" class="form-check-input" name="time" value="9">
                                             9.00 น.
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="time" id="time" value="10">
+                                            <input type="radio" class="form-check-input" name="time" value="10">
                                             10.00 น.
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="time" id="time" value="11">
+                                            <input type="radio" class="form-check-input" name="time" value="11">
                                             11.00 น.
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="time" id="time" value="13">
+                                            <input type="radio" class="form-check-input" name="time" value="13">
                                             13.00 น.
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="time" id="time" value="14">
+                                            <input type="radio" class="form-check-input" name="time" value="14">
                                             14.00 น.
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="time" id="time" value="15">
+                                            <input type="radio" class="form-check-input" name="time" value="15">
                                             15.00 น.
                                         </label>
                                     </div>
@@ -101,44 +101,183 @@ if ($_SESSION['id'] == "") {
                     </div>
                 </div>
                 <hr>
-                
-                <table id="allmeetdoctor" class="display">
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>ชื่อผู้เข้าพบแพทย์</th>
-                            <th>วันที่</th>
-                            <th>เวลาเข้าพบแพทย์</th>
-                            <th>สถานะการจอง</th>
-                            <th>action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $sql = $conn->query("SELECT * FROM meetdr");
-                        while ($datamymeetdr = $sql->fetch_assoc()) {
-                            $dataname = $conn->query("SELECT name FROM login Where id='$datamymeetdr[ownerid]'")->fetch_assoc();
-                        ?>
-                            <tr>
-                                <td><?= $datamymeetdr['id'] ?></td>
-                                <td><?= $dataname['name'] ?></td>
-                                <td><?= $datamymeetdr['date'] ?></td>
-                                <td><?= $datamymeetdr['time'] ?></td>
-                                <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
-                                <td>
-                                    <?php if ($_SESSION['role'] == 1) { ?>
-                                        <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติ</a>
-                                        <a href="notapprovemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ไม่อนุมัติ</a>
-                                    <?php } elseif ($_SESSION['role'] == 2 and $_SESSION['id'] == $datamymeetdr['ownerid']) { ?>
-                                        <a href="deletemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ยกเลิกการจอง</a>
-                                    <?php } ?>
-                                </td>
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">รายการจองแพทย์ทั้งหมด</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">รายการรออนุมัติ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">รายการไม่อนุมัติ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab1" data-toggle="pill" href="#pills-contact1" role="tab" aria-controls="pills-contact1" aria-selected="false">รายการอนุมัติแล้ว</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <table id="allmeetdoctor1" class="display">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>ชื่อผู้เข้าพบแพทย์</th>
+                                    <th>วันที่</th>
+                                    <th>เวลาเข้าพบแพทย์</th>
+                                    <th>สถานะการจอง</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $sql = $conn->query("SELECT * FROM meetdr");
+                                while ($datamymeetdr = $sql->fetch_assoc()) {
+                                    $dataname = $conn->query("SELECT name FROM login Where id='$datamymeetdr[ownerid]'")->fetch_assoc();
+                                ?>
+                                    <tr>
+                                        <td><?= $datamymeetdr['id'] ?></td>
+                                        <td><?= $dataname['name'] ?></td>
+                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= $datamymeetdr['time'] ?></td>
+                                        <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
+                                        <td>
+                                            <?php if ($_SESSION['role'] == 1) { ?>
+                                                <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติ</a>
+                                                <a href="notapprovemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ไม่อนุมัติ</a>
+                                            <?php } elseif ($_SESSION['role'] == 2 and $_SESSION['id'] == $datamymeetdr['ownerid']) { ?>
+                                                <a href="deletemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ยกเลิกการจอง</a>
+                                            <?php } ?>
+                                        </td>
 
-                            </tr>
-                        <?php } ?>
+                                    </tr>
+                                <?php } ?>
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <table id="allmeetdoctor2" class="display">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>ชื่อผู้เข้าพบแพทย์</th>
+                                    <th>วันที่</th>
+                                    <th>เวลาเข้าพบแพทย์</th>
+                                    <th>สถานะการจอง</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $sql = $conn->query("SELECT * FROM meetdr Where status=0");
+                                while ($datamymeetdr = $sql->fetch_assoc()) {
+                                    $dataname = $conn->query("SELECT name FROM login Where id='$datamymeetdr[ownerid]'")->fetch_assoc();
+                                ?>
+                                    <tr>
+                                        <td><?= $datamymeetdr['id'] ?></td>
+                                        <td><?= $dataname['name'] ?></td>
+                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= $datamymeetdr['time'] ?></td>
+                                        <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
+                                        <td>
+                                            <?php if ($_SESSION['role'] == 1) { ?>
+                                                <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติ</a>
+                                                <a href="notapprovemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ไม่อนุมัติ</a>
+                                            <?php } elseif ($_SESSION['role'] == 2 and $_SESSION['id'] == $datamymeetdr['ownerid']) { ?>
+                                                <a href="deletemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ยกเลิกการจอง</a>
+                                            <?php } ?>
+                                        </td>
+
+                                    </tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <table id="allmeetdoctor3" class="display">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>ชื่อผู้เข้าพบแพทย์</th>
+                                    <th>วันที่</th>
+                                    <th>เวลาเข้าพบแพทย์</th>
+                                    <th>สถานะการจอง</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $sql = $conn->query("SELECT * FROM meetdr Where status BETWEEN 2 AND 3");
+                                while ($datamymeetdr = $sql->fetch_assoc()) {
+                                    $dataname = $conn->query("SELECT name FROM login Where id='$datamymeetdr[ownerid]'")->fetch_assoc();
+                                ?>
+                                    <tr>
+                                        <td><?= $datamymeetdr['id'] ?></td>
+                                        <td><?= $dataname['name'] ?></td>
+                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= $datamymeetdr['time'] ?></td>
+                                        <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
+                                        <td>
+                                            <?php if ($_SESSION['role'] == 1) { ?>
+                                                <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติอีกครั้ง</a>
+                                            <?php } elseif ($_SESSION['role'] == 2 and $_SESSION['id'] == $datamymeetdr['ownerid']) { ?>
+                                                <a href="deletemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ยกเลิกการจอง</a>
+                                            <?php } ?>
+                                        </td>
+
+                                    </tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact1" role="tabpanel" aria-labelledby="pills-contact-tab1">
+                        <table id="allmeetdoctor4" class="display">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>ชื่อผู้เข้าพบแพทย์</th>
+                                    <th>วันที่</th>
+                                    <th>เวลาเข้าพบแพทย์</th>
+                                    <th>สถานะการจอง</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $sql = $conn->query("SELECT * FROM meetdr Where status=1");
+                                while ($datamymeetdr = $sql->fetch_assoc()) {
+                                    $dataname = $conn->query("SELECT name FROM login Where id='$datamymeetdr[ownerid]'")->fetch_assoc();
+                                ?>
+                                    <tr>
+                                        <td><?= $datamymeetdr['id'] ?></td>
+                                        <td><?= $dataname['name'] ?></td>
+                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= $datamymeetdr['time'] ?></td>
+                                        <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
+                                        <td>
+                                            <?php if ($_SESSION['role'] == 1) { ?>
+                                                <a href="approve.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-success">อนุมัติ</a>
+                                                <a href="notapprovemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ไม่อนุมัติ</a>
+                                            <?php } elseif ($_SESSION['role'] == 2 and $_SESSION['id'] == $datamymeetdr['ownerid']) { ?>
+                                                <a href="deletemymeet.php?id=<?= $datamymeetdr['id'] ?>" class="btn btn-danger">ยกเลิกการจอง</a>
+                                            <?php } ?>
+                                        </td>
+
+                                    </tr>
+                                <?php } ?>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="calendar"></div>
             </div>
         </div>
     </div>
@@ -146,9 +285,54 @@ if ($_SESSION['id'] == "") {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#allmeetdoctor').DataTable();
+            $('#allmeetdoctor1').DataTable();
+            $('#allmeetdoctor2').DataTable();
+            $('#allmeetdoctor3').DataTable();
+            $('#allmeetdoctor4').DataTable();
+        });
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: '2018-11-16',
+            navLinks: true,
+            eventLimit: true,
+            events: [{
+                    title: 'Front-End Conference',
+                    start: '2018-11-16',
+                    end: '2018-11-18'
+                },
+                {
+                    title: 'Hair stylist with Mike',
+                    start: '2018-11-20',
+                    allDay: true
+                },
+                {
+                    title: 'Car mechanic',
+                    start: '2018-11-14T09:00:00',
+                    end: '2018-11-14T11:00:00'
+                },
+                {
+                    title: 'Dinner with Mike',
+                    start: '2018-11-21T19:00:00',
+                    end: '2018-11-21T22:00:00'
+                },
+                {
+                    title: 'Chillout',
+                    start: '2018-11-15',
+                    allDay: true
+                },
+                {
+                    title: 'Vacation',
+                    start: '2018-11-23',
+                    end: '2018-11-29'
+                },
+            ]
         });
     </script>
 </body>
