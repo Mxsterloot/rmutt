@@ -3,12 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 25, 2020 at 11:51 AM
--- Server version: 5.7.26
+-- Generation Time: 12 พ.ย. 2020 เมื่อ 03:07 PM
+-- เวอร์ชันของเซิร์ฟเวอร์: 5.7.26
 -- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET time_zone = "+07:00";
 
 --
 -- Database: `dps_db`
@@ -17,7 +17,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login`
+-- โครงสร้างตาราง `faculty`
+--
+
+CREATE TABLE `faculty` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- dump ตาราง `faculty`
+--
+
+INSERT INTO `faculty` (`id`, `name`) VALUES
+(1, 'วิศวกรรมศาสตร์'),
+(2, 'บริหารธุรกิจ'),
+(3, 'เทคโนโลยีคหกรรมศาสตร์'),
+(4, 'ศิลปกรรมศาสตร์'),
+(5, 'เทคโนโลยีการเกษตร'),
+(6, 'ครุศาสตร์อุตสาหกรรม'),
+(7, 'วิทยาศาสตร์และเทคโนโลยี'),
+(8, 'เทคโนโลยีสื่อสารมวลชน'),
+(9, 'ศิลปศาสตร์'),
+(10, 'วิทยาลัยการแพทย์แผนไทย'),
+(11, 'พยาบาลศาสตร์');
+
+-- --------------------------------------------------------
+
+--
+-- โครงสร้างตาราง `login`
 --
 
 CREATE TABLE `login` (
@@ -31,7 +59,7 @@ CREATE TABLE `login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `login`
+-- dump ตาราง `login`
 --
 
 INSERT INTO `login` (`id`, `username`, `password`, `name`, `faculty`, `role`, `birthday`) VALUES
@@ -41,7 +69,7 @@ INSERT INTO `login` (`id`, `username`, `password`, `name`, `faculty`, `role`, `b
 -- --------------------------------------------------------
 
 --
--- Table structure for table `meetdr`
+-- โครงสร้างตาราง `meetdr`
 --
 
 CREATE TABLE `meetdr` (
@@ -54,11 +82,11 @@ CREATE TABLE `meetdr` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ตารางนัดพบแพทย์';
 
 --
--- Dumping data for table `meetdr`
+-- dump ตาราง `meetdr`
 --
 
 INSERT INTO `meetdr` (`id`, `date`, `time`, `ownerid`, `status`, `timestamp`) VALUES
-(1, '2020-09-25', '00:00:00', '2', 0, '2020-09-25 10:34:52'),
+(1, '2020-09-25', '00:00:00', '2', 1, '2020-09-25 10:34:52'),
 (2, '2020-09-25', '20:03:00', '2', 0, '2020-09-25 11:04:27'),
 (3, '2020-06-12', '09:30:00', '2', 0, '2020-09-25 11:08:24'),
 (4, '2020-09-13', '10:30:00', '2', 2, '2020-09-25 11:14:52'),
@@ -68,7 +96,7 @@ INSERT INTO `meetdr` (`id`, `date`, `time`, `ownerid`, `status`, `timestamp`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `question`
+-- โครงสร้างตาราง `question`
 --
 
 CREATE TABLE `question` (
@@ -86,7 +114,7 @@ CREATE TABLE `question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `question`
+-- dump ตาราง `question`
 --
 
 INSERT INTO `question` (`question_id`, `q1`, `q2`, `q3`, `q4`, `q5`, `q6`, `q7`, `q8`, `q9`, `q_sum`) VALUES
@@ -104,6 +132,12 @@ INSERT INTO `question` (`question_id`, `q1`, `q2`, `q3`, `q4`, `q5`, `q6`, `q7`,
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `faculty`
+--
+ALTER TABLE `faculty`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `login`
@@ -127,6 +161,12 @@ ALTER TABLE `question`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `faculty`
+--
+ALTER TABLE `faculty`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `login`
