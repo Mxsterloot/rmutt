@@ -33,14 +33,14 @@ if ($_SESSION['id'] == "") {
     <div class="container">
         <div class="row">
             <button type="button" class="btn btn-primary btn-lg btn-block mt-3" data-toggle="modal" data-target="#modelId">
-                <i class="fa fa-plus" aria-hidden="true"></i> จองคิวพบจิตแพทย์
+                <i class="fa fa-plus" aria-hidden="true"></i> นัดพบแพทย์
             </button>
-            <div class="col-sm-9">
+            <div class="col-sm-12">
                 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">จองคิวพบจิตแพทย์</h5>
+                                <h5 class="modal-title">นัดพบแพทย์</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -127,14 +127,19 @@ if ($_SESSION['id'] == "") {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = $conn->query("SELECT * FROM meetdr");
+                                if($_SESSION['role']==1){
+                                    $sql = $conn->query("SELECT * FROM meetdr");
+                                }elseif($_SESSION['role']==2){
+                                    $sql = $conn->query("SELECT * FROM meetdr Where ownerid='$_SESSION[role]'");
+                                }
+                                
                                 while ($datamymeetdr = $sql->fetch_assoc()) {
                                     $dataname = $conn->query("SELECT name FROM login Where id='$datamymeetdr[ownerid]'")->fetch_assoc();
                                 ?>
                                     <tr>
                                         <td><?= $datamymeetdr['id'] ?></td>
                                         <td><?= $dataname['name'] ?></td>
-                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= DateThai($datamymeetdr['date']) ?></td>
                                         <td><?= $datamymeetdr['time'] ?></td>
                                         <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
                                         <td>
@@ -173,7 +178,7 @@ if ($_SESSION['id'] == "") {
                                     <tr>
                                         <td><?= $datamymeetdr['id'] ?></td>
                                         <td><?= $dataname['name'] ?></td>
-                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= DateThai($datamymeetdr['date']) ?></td>
                                         <td><?= $datamymeetdr['time'] ?></td>
                                         <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
                                         <td>
@@ -212,7 +217,7 @@ if ($_SESSION['id'] == "") {
                                     <tr>
                                         <td><?= $datamymeetdr['id'] ?></td>
                                         <td><?= $dataname['name'] ?></td>
-                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= DateThai($datamymeetdr['date']) ?></td>
                                         <td><?= $datamymeetdr['time'] ?></td>
                                         <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
                                         <td>
@@ -250,7 +255,7 @@ if ($_SESSION['id'] == "") {
                                     <tr>
                                         <td><?= $datamymeetdr['id'] ?></td>
                                         <td><?= $dataname['name'] ?></td>
-                                        <td><?= $datamymeetdr['date'] ?></td>
+                                        <td><?= DateThai($datamymeetdr['date']) ?></td>
                                         <td><?= $datamymeetdr['time'] ?></td>
                                         <td><span class="badge badge-<?= colorbadge($datamymeetdr['status'])  ?>"><?= statusbar($datamymeetdr['status'])  ?></span></td>
                                         <td>
@@ -270,9 +275,6 @@ if ($_SESSION['id'] == "") {
                     </div>
                 </div>
 
-            </div>
-            <div class="col-sm-3">
-                <iframe src="https://calendar.google.com/calendar/embed?src=champzza0o0%40gmail.com&ctz=Asia%2FBangkok" style="border: 0" width="auto" height="300px" frameborder="0" scrolling="no"></iframe>
             </div>
         </div>
     </div>

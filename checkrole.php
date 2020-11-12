@@ -30,7 +30,7 @@ function statusbar($statusid){
         $text = "รออนุมัติ";
     }elseif($statusid==1){
         $color = "success";
-        $text = "อนุมัติแล้ว รอพบแพทย์";
+        $text = "อนุมัติแล้ว รอให้คำปรึกษา";
     }elseif($statusid==2){
         $color = "danger";
         $text = "ไม่อนุมัติ";
@@ -47,7 +47,7 @@ function colorbadge($statusid){
         $text = "รออนุมัติ";
     }elseif($statusid==1){
         $color = "success";
-        $text = "อนุมัติแล้ว รอพบแพทย์";
+        $text = "อนุมัติแล้ว รอให้คำปรึกษา";
     }elseif($statusid==2){
         $color = "danger";
         $text = "ไม่อนุมัติ";
@@ -57,3 +57,16 @@ function colorbadge($statusid){
     }
     return $color;
 }
+
+	function DateThai($strDate)
+	{
+		$strYear = date("Y",strtotime($strDate))+543;
+		$strMonth= date("n",strtotime($strDate));
+		$strDay= date("j",strtotime($strDate));
+		$strHour= date("H",strtotime($strDate));
+		$strMinute= date("i",strtotime($strDate));
+		$strSeconds= date("s",strtotime($strDate));
+		$strMonthCut = Array("","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+		$strMonthThai=$strMonthCut[$strMonth];
+		return "$strDay $strMonthThai $strYear";
+	}

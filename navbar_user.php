@@ -1,27 +1,37 @@
-<?php
-            if ($_SESSION['logined'] === FALSE) { 
-                include 'navbar_notlogin.php';
-            } ?>
-<?php 
-if($_SESSION['role']==1){ ?> 
 <nav class="navbar navbar-expand-lg navbar-white bg-white text-white">
     <a class="navbar-brand" href="index.php">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="about.php">เกี่ยวกับองค์กร <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="sad.php">แบบประเมินความเสี่ยง</a>
+            </li>
+            <?php
+            if ($_SESSION['logined'] === TRUE) { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="meetdoctor.php">นัดพบแพทย์</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="adduser.php">เพิ่มผู้ใช้</a>
-                </li>
-                
+            <?php } ?>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    เกี่ยวกับภาวะซึมเศร้า
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="Depressive_causes.php">สาเหตุอาการภาวะซึมเศร้า</a>
+                    <a class="dropdown-item" href="treat.php">วิธีการรักษาเบื้องต้น</a>
+                    <a class="dropdown-item" href="side_effect.php">ผลข้างเคียงของยารักษาภาวะซึมเศร้า</a>
+                    <div class="dropdown-divider"></div>
+                </div>
+            </li>
         </ul>
+
         <?php
         if ($_SESSION['logined'] == FALSE) { ?>
             <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">เข้าสู่ระบบ</button>
@@ -63,6 +73,3 @@ if($_SESSION['role']==1){ ?>
     </div>
 
 </nav>
-<?php }else{
-    include_once 'navbar_user.php';
-} ?>
